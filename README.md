@@ -23,7 +23,7 @@ python run.py
 
 ## Configuração
 Arquivo `settings.json`
-```json
+```
 {
     "postUrl": "", // Resultados serão enviados para cá se o Join não estiver configurado
     "apiKey": "", // Key da api do Join
