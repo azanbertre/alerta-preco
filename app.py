@@ -96,19 +96,23 @@ class App:
         self.post_url = None
         self.api_key = None
         self.products = []
+        self.raw_products = []
         self.interval = 1
 
-    def load_sites(self):
+    def load_settings(self):
         with open(self.path, 'r') as f:
             data = json.load(f)
-            products = data.get('products', [])
+            self.raw_products = data.get('products', [])
             self.post_url = data.get('postUrl')
             self.api_key = data.get('apiKey')
             self.interval = int(data.get('interval', 1))
             if self.interval <= 0:
                 self.interval = 1
 
-        for product in products:
+    def load_products(self):
+        self.products = []
+
+        for product in self.raw_products:
             store = self.get_store(product['url'])
 
             self.products.append({
@@ -158,6 +162,8 @@ class App:
         counter = 0
         while True:
             print("\n#Execução de index número {}".format(counter))
+
+            self.load_products()
 
             results = []
             for product in self.products:
