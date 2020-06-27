@@ -163,6 +163,8 @@ class App:
         while True:
             print("\n#Execução de index número {}".format(counter))
 
+            counter += 1
+
             self.load_products()
 
             results = []
@@ -184,6 +186,9 @@ class App:
                     result = Magazine.scrape(product['html'])
                 elif product['store'] == StoreEnum.AMAZON:
                     result = Amazon.scrape(product['html'])
+
+                if not result['name'] or not result['price']:
+                    continue
 
                 result['store'] = product['store'].to_name()
                 result['ideal_price'] = product['price']

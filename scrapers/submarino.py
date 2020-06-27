@@ -5,8 +5,11 @@ class Submarino:
     def scrape(cls, html):
         soup = BeautifulSoup(html, 'html.parser')
 
-        name = soup.find('h1', {'id': 'product-name-default'}).getText()
+        name = soup.find('h1', {'id': 'product-name-default'})
         price = soup.find('span', {'class': 'sales-price'})
+
+        if name:
+            name = name.getText().strip()
 
         if price:
             price = price.getText()

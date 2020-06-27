@@ -5,10 +5,13 @@ class CasasBahia:
     def scrape(cls, html):
         soup = BeautifulSoup(html, 'html.parser')
 
-        name = soup.find('h1', {'class': 'fn name'}).getText()
-        price = soup.find('i', {'class': 'sale price'}).getText()
+        name = soup.find('h1', {'class': 'fn name'})
+        price = soup.find('i', {'class': 'sale price'})
+
+        if name:
+            name = name.getText().strip()
 
         if price:
-            price = float(price.replace('.', '').replace(',', '.'))
+            price = float(price.getText().replace('.', '').replace(',', '.'))
 
         return {'name': name, 'price': price}
